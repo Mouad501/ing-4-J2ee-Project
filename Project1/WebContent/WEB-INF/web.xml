@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<element>
+<web-app 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	
+	<servlet>
+		<servlet-name>Authentification</servlet-name>
+		<servlet-class>com.project.servlets.Authentification</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Authentification</servlet-name>
+		<url-pattern>/Authentification</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Inscription</servlet-name>
+		<servlet-class>com.project.servlets.Inscription</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Inscription</servlet-name>
+		<url-pattern>/Inscription</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Products</servlet-name>
+		<servlet-class>com.project.servlets.Products</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Products</servlet-name>
+		<url-pattern>/Products</url-pattern>
+	</servlet-mapping>
+	
+	<jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>	
+	
+</web-app>
+</element>

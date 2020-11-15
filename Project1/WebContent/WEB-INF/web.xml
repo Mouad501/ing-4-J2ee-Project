@@ -14,21 +14,30 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>Inscription</servlet-name>
-		<servlet-class>com.project.servlets.Inscription</servlet-class>
+		<servlet-name>Index</servlet-name>
+		<servlet-class>com.project.servlets.Index</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Inscription</servlet-name>
-		<url-pattern>/Inscription</url-pattern>
+		<servlet-name>Index</servlet-name>
+		<url-pattern>/Index</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>Products</servlet-name>
-		<servlet-class>com.project.servlets.Products</servlet-class>
+		<servlet-name>Shop</servlet-name>
+		<servlet-class>com.project.servlets.Shop</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Products</servlet-name>
-		<url-pattern>/Products</url-pattern>
+		<servlet-name>Shop</servlet-name>
+		<url-pattern>/Shop</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Product_info</servlet-name>
+		<servlet-class>com.project.servlets.Product_info</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Product_info</servlet-name>
+		<url-pattern>/Product_info</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>

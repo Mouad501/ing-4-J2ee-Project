@@ -2,6 +2,7 @@ package com.project.bdd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,46 @@ public class Access {
 
 	public Access() {
 		super();
+	}
+	
+	public Product getProduct(int id) {
+		Product product = null;
+		/* Chargement du driver JDBC pour MySQL */
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "Mouadsat10";
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		String sql = "SELECT * FROM products WHERE id = ?;";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    statement = connexion.createStatement();
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    preparedStatement.setInt(1, id);
+		    resultat = preparedStatement.executeQuery();
+		    if(resultat.next()) {
+		    	product = new Product(resultat.getInt("id"), resultat.getString("designation"),
+		    			 resultat.getString("categorie"), resultat.getString("description"), resultat.getFloat("prix"),
+		    			 resultat.getString("keyword"), resultat.getString("image"), resultat.getInt("q_stock"));
+		    }
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+		return product;
 	}
 	
 	public ArrayList<Product> getProducts() {
@@ -83,7 +124,7 @@ public class Access {
 		    statement = connexion.createStatement();
 		    resultat = statement.executeQuery(sql);
 		    if(resultat.next()){
-		    	user = new User(resultat.getInt("id"), resultat.getString("firstname"), resultat.getString("lastname"), resultat.getString("email"), resultat.getString("password"), resultat.getString("tel"), resultat.getString("address"), resultat.getString("sex"));
+		    	user = new User(resultat.getInt("id"), resultat.getString("username"), resultat.getString("email"), resultat.getString("password"), resultat.getString("tel"), resultat.getString("address"));
 		    }
 		    connexion.close(); 
 
@@ -109,7 +150,7 @@ public class Access {
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultat = null;
-		String sql = "INSERT INTO users(firstname, lastname, email, password, tel, address, sex) VALUES ('" + user.getFirstname() +"', '" +user.getLastname() +"', '" + user.getEmail() +"', '" + user.getPassword() +"', '" + user.getTel() +"', '" + user.getAddress() +"', '" + user.getSex() +"');";
+		String sql = "INSERT INTO users(username, email, password, tel, address) VALUES ('" + user.getUsername() +"', '" + user.getEmail() +"', '" + user.getPassword() +"', '" + user.getTel() +"', '" + user.getAddress() +"');";
 		try {
 			
 		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );

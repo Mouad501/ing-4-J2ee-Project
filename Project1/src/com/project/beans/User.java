@@ -3,24 +3,20 @@ package com.project.beans;
 public class User {
 
 	private int id;
-	private String firstname;
-	private String lastname;
+	private String username;
 	private String email;
 	private String password;
 	private String tel;
 	private String address;
-	private String sex;
 	
 	
-	public User(int id, String firstname, String lastname, String email, String password, String tel, String address, String sex) {
+	public User(int id, String username, String email, String password, String tel, String address) {
 		this.id = id;
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
+		this.setUsername(username);
 		this.setEmail(email);
 		this.setPassword(password);
 		this.setTel(tel);
-		this.setAddress(address);
-		this.setSex(sex);	
+		this.setAddress(address);	
 	}
 
 	public String getEmail() {
@@ -52,22 +48,6 @@ public class User {
 		
 	}
 
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
 	public String getTel() {
 		return tel;
 	}
@@ -84,12 +64,12 @@ public class User {
 		this.address = address;
 	}
 
-	public String getSex() {
-		return sex;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

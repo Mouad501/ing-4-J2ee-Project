@@ -278,7 +278,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<a href="/Index?id=${ product.id }"><button class="product_cart_button">Add to Cart</button></a>
+													<a href="/Project1/Index?id=${ product.id }"><button class="product_cart_button">Add to Cart</button></a>
 												</div>
 											</div>
 											<div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -313,7 +313,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<a href="/Index?id=${ product.id }"><button class="product_cart_button">Add to Cart</button></a>
+													<a href="/Project1/Index?id=${ product.id }"><button class="product_cart_button">Add to Cart</button></a>
 												</div>
 											</div>
 											<div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -349,7 +349,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<a href="/Index?id=${ product.id }"><button class="product_cart_button">Add to Cart</button></a>
+													<a href="/Project1/Index?id=${ product.id }"><button class="product_cart_button">Add to Cart</button></a>
 												</div>
 											</div>
 											<div class="product_fav"><i class="fas fa-heart"></i></div>

@@ -17,11 +17,13 @@
 <body>
 	<%@ include file="header.html" %>
 	
-	
-	  <c:if test="${ id == null}">  
-	     <c:redirect url="/Shop"/>  
-	  </c:if>  
-  
+	<c:if test="${ add_to_cart != null}">  
+	  <c:redirect url="/Product_info?id=${ add_to_cart }"/>  
+	</c:if>
+	<c:if test="${ id == null}">  
+	  <c:redirect url="/Shop"/>  
+	</c:if>  
+	  
   
 	
 	<!-- Single Product -->
@@ -84,7 +86,7 @@
 
 								<div class="product_price">$${ product.prix }</div>
 								<div class="button_container">
-									<a href="#?/${ product.id }"><button type="button" class="button cart_button">Add to Cart</button></a>
+									<a href="Product_info?add_to_cart=${ product.id }"><button type="button" class="button cart_button">Add to Cart</button></a>
 									<div class="product_fav"><i class="fas fa-heart"></i></div>
 								</div>
 								

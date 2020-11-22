@@ -56,7 +56,7 @@
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="Index">OneTech</a></div>
 						</div>
 					</div>
 
@@ -104,11 +104,11 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="images/cart.png" alt="">
-										<div class="cart_count"><span>10</span></div>
+										<div class="cart_count"><span>${sessionScope.cart.longueur}</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">$85</div>
+										<div class="cart_text"><a href="Cart">Cart</a></div>
+										<div class="cart_price">$${sessionScope.cart.total_price}</div>
 									</div>
 								</div>
 							</div>

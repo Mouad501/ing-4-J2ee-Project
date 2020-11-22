@@ -88,5 +88,16 @@ public class Product {
 	public void setQ_stock(int q_stock) {
 		this.q_stock = q_stock;
 	}
+	
+	@Override
+	public boolean equals(Object p) {
+        if(p == null) return false;
+        if(p == this) return true;
+        if (this.getClass() != p.getClass()){ 
+            return false;
+        }
+        if(((Product) p).getId() == this.getId()) return true;
+        return false;
+    }
 
 }

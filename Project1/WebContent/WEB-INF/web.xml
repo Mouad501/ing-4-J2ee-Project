@@ -32,6 +32,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>Cart</servlet-name>
+		<servlet-class>com.project.servlets.Panel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Cart</servlet-name>
+		<url-pattern>/Cart</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Product_info</servlet-name>
 		<servlet-class>com.project.servlets.Product_info</servlet-class>
 	</servlet>

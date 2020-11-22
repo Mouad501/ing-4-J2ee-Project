@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.project.bdd.Access;
+import com.project.beans.Cart;
 import com.project.beans.Product;
 
 /**
@@ -27,9 +29,18 @@ public class Shop extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Cart cart = (Cart) session.getAttribute("cart");
+		if(session.getAttribute("cart") == null) {
+			session.setAttribute("cart", new Cart());
+		}
+		
+		
+		// display products 
 		Access acce = new Access();
 		ArrayList<Product> products = acce.getProducts();
 		request.setAttribute("products", products);
+		
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/shop.jsp").forward(request, response);
 	}

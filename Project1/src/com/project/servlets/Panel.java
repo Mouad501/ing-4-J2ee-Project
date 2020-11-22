@@ -1,8 +1,6 @@
 package com.project.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,48 +8,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.project.bdd.Access;
 import com.project.beans.Cart;
-import com.project.beans.Product;
 
 /**
- * Servlet implementation class Index
+ * Servlet implementation class Panel
  */
-@WebServlet("/Index")
-public class Index extends HttpServlet {
+@WebServlet("/Cart")
+public class Panel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Index() {
+    
+    public Panel() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
+		Cart cart = (Cart) session.getAttribute("cart");
 		if(session.getAttribute("cart") == null) {
 			session.setAttribute("cart", new Cart());
 		}
-			
-		// get all products to display them
-		Access acce = new Access();
-		ArrayList<Product> products = acce.getProducts();
-		request.setAttribute("products", products);
 		
-		// add product to cart
-		if(request.getParameter("id") != null) {
-			Cart cart = (Cart) session.getAttribute("cart");
-			cart.addProduct(Integer.parseInt(request.getParameter("id")));
+		// clear cart
+		if(request.getParameter("clear") != null) {
+			session.setAttribute("cart", new Cart());
+		}
+		
+		// remove product from the cart
+		if(request.getParameter("id_remove") != null) {
+			cart.removeProduct(Integer.parseInt(request.getParameter("id_remove")));
 			session.setAttribute("cart", cart);
 		}
 		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/cart.jsp").forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

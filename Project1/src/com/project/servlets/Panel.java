@@ -47,8 +47,17 @@ public class Panel extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		Cart cart = (Cart) session.getAttribute("cart");
+		if(request.getParameter("id_update") != null) {
+			if(request.getParameter("quantity") != null) {
+				cart.updateCart(Integer.parseInt(request.getParameter("id_update")), Integer.parseInt(request.getParameter("quantity")));
+			}
+		}
+		
+		
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/cart.jsp").forward(request, response);
 	}
 
 }

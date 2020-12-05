@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.project.beans.Cart;
+import com.project.beans.CartItem;
 import com.project.beans.Product;
 import com.project.beans.User;
 
@@ -15,6 +17,57 @@ public class Access {
 
 	public Access() {
 		super();
+	}
+	
+	public boolean addOrder(int user_id, Cart cart) {
+		
+		/* Chargement du driver JDBC pour MySQL */
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "Mouadsat10";
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		String sql1 = "CALL addcommande(?,@p0);";
+		String sql2 = "SELECT @p0;";
+		String sql3 = "INSERT INTO lignedecommande(order_id, product_id, quantite) VALUES(?,?,?);";
+		int id_commande=-1;
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    statement = connexion.createStatement();
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql1);
+		    preparedStatement.setInt(1, user_id);
+		    preparedStatement.executeUpdate();
+		    preparedStatement = connexion.prepareStatement(sql2);
+		    resultat = preparedStatement.executeQuery();
+		    if(resultat.next()) {
+		    	id_commande = resultat.getInt("@p0");
+		    }
+		    if(id_commande == -1) return false;
+		    for(CartItem item : cart.getListOfProducts()) {
+		    	preparedStatement = connexion.prepareStatement(sql3);
+		    	preparedStatement.setInt(1, id_commande);
+			    preparedStatement.setInt(2, item.getProduct().getId());
+			    preparedStatement.setInt(3, item.getQuantity());
+			    preparedStatement.executeUpdate();
+		    }
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+		return true;
 	}
 	
 	public Product getProduct(int id) {
@@ -124,7 +177,7 @@ public class Access {
 		    statement = connexion.createStatement();
 		    resultat = statement.executeQuery(sql);
 		    if(resultat.next()){
-		    	user = new User(resultat.getInt("id"), resultat.getString("username"), resultat.getString("email"), resultat.getString("password"), resultat.getString("tel"), resultat.getString("address"));
+		    	user = new User(resultat.getInt("id"), resultat.getString("username"), resultat.getString("email"), resultat.getString("password"), resultat.getString("tel"), resultat.getString("address"), resultat.getString("role"));
 		    }
 		    connexion.close(); 
 

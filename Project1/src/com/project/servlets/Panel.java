@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.project.bdd.Access;
 import com.project.beans.Cart;
+import com.project.beans.User;
 
 /**
  * Servlet implementation class Panel
@@ -55,7 +57,22 @@ public class Panel extends HttpServlet {
 			}
 		}
 		
-		
+		if(request.getParameter("Buy") != null) {
+			User user = (User) session.getAttribute("user");
+			if(user == null) {
+				response.sendRedirect("/Project1/Authentification");
+				return;
+			}
+			else {
+				if(cart.getLongueur() > 0) {
+					Access accee = new Access();
+					boolean test_success = accee.addOrder(user.getId(), cart);
+					if(test_success) {
+						session.setAttribute("cart", new Cart());
+					}
+				}
+			}
+		}
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/cart.jsp").forward(request, response);
 	}

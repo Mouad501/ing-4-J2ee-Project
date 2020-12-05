@@ -29,7 +29,7 @@ public class Authentification extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
 		if(request.getParameter("signin")!=null) {
 			String email = (String)request.getParameter("email");
 			String password = (String)request.getParameter("password");
@@ -39,9 +39,14 @@ public class Authentification extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/login_signup.jsp").forward(request, response);
 			}
 			else {
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
-				response.sendRedirect("/Project1/Index");
+				if(user.getRole().equalsIgnoreCase("user")){
+					session.setAttribute("user", user);
+					response.sendRedirect("/Project1/Index");
+				}
+				if(user.getRole().equalsIgnoreCase("admin")) {
+					session.setAttribute("admin", user);
+					response.sendRedirect("/Project1/Dashboard");
+				}
 			}
 		}
 		
@@ -51,11 +56,10 @@ public class Authentification extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/login_signup.jsp").forward(request, response);
 			}
 			else {
-				User user = new User(-1, request.getParameter("username"), request.getParameter("email"), request.getParameter("password"), request.getParameter("tel"), request.getParameter("address"));
+				User user = new User(-1, request.getParameter("username"), request.getParameter("email"), request.getParameter("password"), request.getParameter("tel"), request.getParameter("address"), "user");
 				Access accee = new Access();
 				boolean status = accee.insertUser(user);
 				if(status) {
-					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
 					response.sendRedirect("/Project1/Index");
 				}

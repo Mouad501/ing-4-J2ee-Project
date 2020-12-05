@@ -144,8 +144,11 @@
 						</div>
 
 						<div class="cart_buttons">
-							<a href="Cart?clear=1"><button type="button" class="button cart_button_clear">Clear</button></a>
-							<button type="button" class="button cart_button_checkout">Buy</button>
+							<form action="Cart" method="post">
+								<a href="Cart?clear=1"><button type="button" class="button cart_button_clear">Clear</button></a>
+							
+								<button type="submit" name="Buy" class="button cart_button_checkout">Buy</button>
+							</form>
 						</div>
 					</div>
 				</div>

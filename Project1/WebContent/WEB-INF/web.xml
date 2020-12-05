@@ -49,6 +49,24 @@
 		<url-pattern>/Product_info</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>Dashboard</servlet-name>
+		<servlet-class>com.project.servlets.Dashboard</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Dashboard</servlet-name>
+		<url-pattern>/Dashboard</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Tables</servlet-name>
+		<servlet-class>com.project.servlets.Tables</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Tables</servlet-name>
+		<url-pattern>/Tables</url-pattern>
+	</servlet-mapping>
+	
 	<jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

@@ -17,7 +17,9 @@ import com.project.beans.Product;
 /**
  * Servlet implementation class Index
  */
-@WebServlet("/Index")
+@WebServlet(
+		 urlPatterns = {"/Index", ""}
+		)
 public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

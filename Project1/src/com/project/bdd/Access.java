@@ -15,8 +15,31 @@ import com.project.beans.User;
 
 public class Access {
 
+	private String dbUrl;
+	private String dbUsername;
+	private String dbPassword;
+	private Connection connexion;
+	
+	
 	public Access() {
-		super();
+		
+		dbUrl = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		dbUsername = "root";
+		dbPassword =  "uirproject1";
+		
+		/* Chargement du driver JDBC pour MySQL */
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		try {
+			connexion = DriverManager.getConnection( dbUrl, dbUsername, dbPassword );
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	public boolean addOrder(int user_id, Cart cart) {
@@ -29,9 +52,9 @@ public class Access {
 		}
 		
 		/* Connexion à la base de données */
-		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String utilisateur = "root";
-		String motDePasse = "Mouadsat10";
+		String motDePasse = "uirproject1";
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultat = null;
@@ -80,9 +103,9 @@ public class Access {
 		}
 		
 		/* Connexion à la base de données */
-		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String utilisateur = "root";
-		String motDePasse = "Mouadsat10";
+		String motDePasse = "uirproject1";
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultat = null;
@@ -121,9 +144,9 @@ public class Access {
 		}
 		
 		/* Connexion à la base de données */
-		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String utilisateur = "root";
-		String motDePasse = "Mouadsat10";
+		String motDePasse = "uirproject1";
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultat = null;
@@ -162,9 +185,9 @@ public class Access {
 		}
 		
 		/* Connexion à la base de données */
-		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String utilisateur = "root";
-		String motDePasse = "Mouadsat10";
+		String motDePasse = "uirproject1";
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultat = null;
@@ -177,7 +200,7 @@ public class Access {
 		    statement = connexion.createStatement();
 		    resultat = statement.executeQuery(sql);
 		    if(resultat.next()){
-		    	user = new User(resultat.getInt("id"), resultat.getString("username"), resultat.getString("email"), resultat.getString("password"), resultat.getString("tel"), resultat.getString("address"), resultat.getString("role"));
+		    	user = new User(resultat.getInt("id"), resultat.getString("username"), resultat.getString("email"), resultat.getString("password"), resultat.getString("tel"), resultat.getString("address"), resultat.getString("role"), resultat.getString("active"));
 		    }
 		    connexion.close(); 
 
@@ -197,9 +220,9 @@ public class Access {
 		}
 		
 		/* Connexion à la base de données */
-		String url = "jdbc:mysql://localhost:3306/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String utilisateur = "root";
-		String motDePasse = "Mouadsat10";
+		String motDePasse = "uirproject1";
 		Connection connexion = null;
 		Statement statement = null;
 		ResultSet resultat = null;
@@ -227,4 +250,83 @@ public class Access {
 		}
 		return false;
 	}
+
+	public ArrayList<User> getClients() {
+		// Get clients list
+		
+		ArrayList<User> clients = new ArrayList<User>();
+		
+	
+		
+		
+		Statement statement = null;
+		ResultSet resultat = null;
+		String sql = "SELECT * FROM users WHERE role ='user';";
+		
+		/* Request SQL */ 
+		try {
+			
+		   
+		   
+		    statement = connexion.createStatement();
+		    resultat = statement.executeQuery(sql);
+		    
+		    while(resultat.next()){
+		    	 User client = new User(
+		    			 resultat.getInt("id"), 
+		    			 resultat.getString("username"),
+		    			 resultat.getString("email"),
+		    			 resultat.getString("password"),
+		    			 resultat.getString("tel"),
+		    			 resultat.getString("address"),
+		    			 resultat.getString("role"),
+		    			 resultat.getString("active")
+		    			 );
+		    	 
+		    	 
+		    	 clients.add(client);
+		    	 System.out.println(clients.size());
+		    }
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+		return clients;
+	}
+
+	public void desactiverClient(int id) {
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "uirproject1";
+		Connection connexion = null;
+		int resultat;
+		String sql = "UPDATE users SET active='non-actif' WHERE id = ?";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    preparedStatement.setInt(1, id);
+		    resultat =preparedStatement.executeUpdate();
+		    
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
+
 }

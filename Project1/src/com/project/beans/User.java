@@ -9,9 +9,10 @@ public class User {
 	private String tel;
 	private String address;
 	private String role;
+	private String active;
 	
 	
-	public User(int id, String username, String email, String password, String tel, String address, String role) {
+	public User(int id, String username, String email, String password, String tel, String address, String role, String active) {
 		this.id = id;
 		this.setUsername(username);
 		this.setEmail(email);
@@ -19,6 +20,7 @@ public class User {
 		this.setTel(tel);
 		this.setAddress(address);	
 		this.role = role;
+		this.setActive(active);
 	}
 
 	public String getEmail() {
@@ -80,6 +82,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
 	}
 
 }

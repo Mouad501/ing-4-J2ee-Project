@@ -56,7 +56,7 @@ public class Authentification extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/login_signup.jsp").forward(request, response);
 			}
 			else {
-				User user = new User(-1, request.getParameter("username"), request.getParameter("email"), request.getParameter("password"), request.getParameter("tel"), request.getParameter("address"), "user");
+				User user = new User(-1, request.getParameter("username"), request.getParameter("email"), request.getParameter("password"), request.getParameter("tel"), request.getParameter("address"), "user", "actif");
 				Access accee = new Access();
 				boolean status = accee.insertUser(user);
 				if(status) {

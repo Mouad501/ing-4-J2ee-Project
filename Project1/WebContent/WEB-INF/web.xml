@@ -67,12 +67,32 @@
 		<url-pattern>/Tables</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>UserInfo</servlet-name>
+		<servlet-class>com.project.servlets.UserInfo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserInfo</servlet-name>
+		<url-pattern>/UserInfo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Forms</servlet-name>
+		<servlet-class>com.project.servlets.Forms</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Forms</servlet-name>
+		<url-pattern>/Forms</url-pattern>
+	</servlet-mapping>
+	
 	<jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>	
+    
+    
 	
 </web-app>
 </element>

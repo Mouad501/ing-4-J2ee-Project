@@ -1,6 +1,8 @@
 package com.project.servlets;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +36,13 @@ public class Authentification extends HttpServlet {
 			String email = (String)request.getParameter("email");
 			String password = (String)request.getParameter("password");
 			Access acce = new Access();
-			User user = acce.getUser(email, password);
+			User user = null;
+			try {
+				user = acce.getUser(email, password);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(user == null) {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/login_signup.jsp").forward(request, response);
 			}
@@ -56,9 +64,15 @@ public class Authentification extends HttpServlet {
 				this.getServletContext().getRequestDispatcher("/WEB-INF/login_signup.jsp").forward(request, response);
 			}
 			else {
-				User user = new User(-1, request.getParameter("username"), request.getParameter("email"), request.getParameter("password"), request.getParameter("tel"), request.getParameter("address"), "user");
+				User user = new User(-1, request.getParameter("username"), request.getParameter("email"), request.getParameter("password"), request.getParameter("tel"), request.getParameter("address"), "user", "actif");
 				Access accee = new Access();
-				boolean status = accee.insertUser(user);
+				boolean status = false;
+				try {
+					status = accee.insertUser(user);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if(status) {
 					session.setAttribute("user", user);
 					response.sendRedirect("/Project1/Index");

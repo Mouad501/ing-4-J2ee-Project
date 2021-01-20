@@ -1,6 +1,8 @@
 package com.project.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.project.bdd.Access;
+import com.project.bdd.BestSelling;
+import com.project.bdd.RecentOrders;
 import com.project.beans.User;
 
 /**
@@ -35,6 +40,19 @@ public class Dashboard extends HttpServlet {
 			response.sendRedirect("/Project1/Authentification");
 			return ;
 		}
+		
+		Access acce = new Access();
+		ArrayList<RecentOrders> orders = acce.getRecentOrders();
+		request.setAttribute("orders", orders);
+		
+		ArrayList<BestSelling> products = acce.getBestSelling();
+		request.setAttribute("products", products);
+		
+		acce.getStatistics();
+		//System.out.println(acce.ca);
+		session.setAttribute("ca", acce.ca);
+		session.setAttribute("nbOrders", acce.nbOrders);
+		session.setAttribute("nbUsers", acce.nbUsers);
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(request, response);
 	}

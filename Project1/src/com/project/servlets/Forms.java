@@ -2,21 +2,33 @@ package com.project.servlets;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.jni.File;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.project.bdd.Access;
+import com.project.beans.Product;
 import com.project.beans.User;
+
 
 /**
  * Servlet implementation class Forms
  */
 @WebServlet("/Forms")
+@MultipartConfig
 public class Forms extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -63,6 +75,56 @@ public class Forms extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				if(status) {
+					this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(request, response);
+				}
+				else {
+					this.getServletContext().getRequestDispatcher("/WEB-INF/Forms.jsp").forward(request, response);
+				}
+			}
+		}
+		
+		if(request.getParameter("editProduct")!=null) {
+			if(request.getParameter("id") == "" || request.getParameter("variable") == "" || request.getParameter("value") == "") {
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Forms.jsp").forward(request, response);
+			}
+			Access acce = new Access();
+			acce.UpdateProduct(Integer.parseInt(request.getParameter("id")), request.getParameter("variable"), request.getParameter("value"));
+			this.getServletContext().getRequestDispatcher("/WEB-INF/Forms.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("addProduct")!=null) {
+			if(request.getParameter("designation") == "" || request.getParameter("categorie") == "" || request.getParameter("description") == "" || request.getParameter("prix") == "" || request.getParameter("keyword") == "" || request.getParameter("quantite") == "" || request.getParameter("image") == "") {
+				this.getServletContext().getRequestDispatcher("/WEB-INF/Forms.jsp").forward(request, response);
+			}
+			else {
+				/*
+				ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
+				List<FileItem> multifiles = null;
+				//System.out.println(request.getParameter("image").getClass());
+				try {
+					multifiles = sf.parseRequest(request);
+				} catch (FileUploadException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				String img = "0";
+				for(FileItem item : multifiles) {
+					try {
+						item.write(new java.io.File("C:/Users/user/git/ing-4-J2ee-Project/Project1/WebContent/images/" + item.getName()));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					img = item.getName();
+				}
+				System.out.println(img);
+				*/
+				
+				Product p = new Product(-1, -1, request.getParameter("designation"), request.getParameter("categorie"), request.getParameter("description"), (float) Double.parseDouble(request.getParameter("prix")), request.getParameter("keyword"), request.getParameter("image"), Integer.parseInt(request.getParameter("quantite")));
+				Access accee = new Access();
+				boolean status = false;
+				status = accee.addProduct(p);
 				if(status) {
 					this.getServletContext().getRequestDispatcher("/WEB-INF/dashboard.jsp").forward(request, response);
 				}

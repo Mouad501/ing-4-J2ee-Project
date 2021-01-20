@@ -45,6 +45,11 @@ public class Tables extends HttpServlet {
 			return ;
 		}
 		
+		if(request.getParameter("deleteProduct") != null ) {
+			Access acce = new Access();
+			acce.deleteProduct(Integer.parseInt(request.getParameter("productID")));
+		}
+		
 		
 		//database access
 		Access acce = new Access();

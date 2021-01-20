@@ -488,7 +488,7 @@ John Abraham</h5>
 	                                                <td>${ product.categorie }</td>
 	                                                <td>${ product.prix }</td>
 	                                                <td>${ product.q_stock }</td>
-	                                                <td class="text-center"><a href="Tables"><button type="submit" class="btn py-1 my-1 btn-danger">Delete</button></a></td>
+	                                                <td class="text-center"><a href="Tables?deleteProduct=1&productID=${ product.id }"><button type="submit" class="btn py-1 my-1 btn-danger">Delete</button></a></td>
 	                                            </tr>
                                             </c:forEach>
                                         </tbody>

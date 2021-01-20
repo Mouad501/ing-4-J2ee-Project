@@ -463,74 +463,48 @@ John Abraham</h5>
                         <!-- ============================================================== -->
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Bootstrap Validation Form</h5>
+                                <h5 class="card-header">Update Product</h5>
                                 <div class="card-body">
-                                    <form class="needs-validation" novalidate>
+                                    <form class="needs-validation" method="post" action="Forms" novalidate>
                                         <div class="row">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                                                <label for="validationCustom01">First name</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                                                <label for="validationCustom01">Product ID</label>
+                                                <input type="number" class="form-control" name="id"><br>
                                                 <div class="valid-feedback">
                                                     Looks good!
                                                 </div>
                                             </div>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                                                <label for="validationCustom02">Last name</label>
-                                                <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                                                <label for="validationCustom02">Variable to update</label>
+                                                <select name="variable" class="form-control">
+												    <option value="">--Please choose an option--</option>
+												    <option value="designation">designation</option>
+												    <option value="categorie">categorie</option>
+												    <option value="prix">prix</option>
+												    <option value="Q_stock">Q_stock</option>
+												</select><br>
                                                 <div class="valid-feedback">
                                                     Looks good!
                                                 </div>
                                             </div>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                                                <label for="validationCustomUsername">Username</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-                                                    <div class="invalid-feedback">
-                                                        Please choose a username.
-                                                    </div>
+                                                <label for="validationCustom02">Value</label>
+                                                <input type="text" class="form-control" name="value">
+                                                <div class="valid-feedback">
+                                                    Looks good!
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                         <div class="form-row">
-                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
-                                                <label for="validationCustom03">City</label>
-                                                <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide a valid city.
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
-                                                <label for="validationCustom04">State</label>
-                                                <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide a valid state.
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
-                                                <label for="validationCustom05">Zip</label>
-                                                <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide a valid zip.
-                                                </div>
-                                            </div>
+                                            
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <div class="form-group">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                                                        <label class="form-check-label" for="invalidCheck">
-                                                            Agree to terms and conditions
-                                                        </label>
-                                                        <div class="invalid-feedback">
-                                                            You must agree before submitting.
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                                                <button class="btn btn-primary" type="submit">Submit form</button>
+                                                <button class="btn btn-primary" name="editProduct" type="submit">Submit form</button>
                                             </div>
                                         </div>
                                     </form>
@@ -547,7 +521,7 @@ John Abraham</h5>
                         <!-- ============================================================== -->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Basic Form</h5>
+                                <h5 class="card-header">Add User</h5>
                                 <div class="card-body">
                                     <form action="Forms" method="post"  data-parsley-validate="">
                                         <div class="form-group">
@@ -602,36 +576,58 @@ John Abraham</h5>
                         <!-- ============================================================== -->
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Horizontal Form</h5>
+                                <h5 class="card-header">Add Product</h5>
                                 <div class="card-body">
-                                    <form id="form" data-parsley-validate="" novalidate="">
+                                    <form id="form" method="post" action="Forms" novalidate="">
                                         <div class="form-group row">
-                                            <label for="inputEmail2" class="col-3 col-lg-2 col-form-label text-right">Email</label>
+                                            <label for="inputEmail2" class="col-3 col-lg-2 col-form-label text-right">Designation</label>
                                             <div class="col-9 col-lg-10">
-                                                <input id="inputEmail2" type="email" required="" data-parsley-type="email" placeholder="Email" class="form-control">
+                                                <input type="text" name="designation"  placeholder="" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputPassword2" class="col-3 col-lg-2 col-form-label text-right">Password</label>
+                                            <label for="inputPassword2" class="col-3 col-lg-2 col-form-label text-right">Categorie</label>
                                             <div class="col-9 col-lg-10">
-                                                <input id="inputPassword2" type="password" required="" placeholder="Password" class="form-control">
+                                                <input type="text" name="categorie" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Web Site</label>
+                                            <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Description</label>
                                             <div class="col-9 col-lg-10">
-                                                <input id="inputWebSite" type="url" required="" data-parsley-type="url" placeholder="URL" class="form-control">
+                                                <input type="text" name="description" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="row pt-2 pt-sm-5 mt-1">
+                                        <div class="form-group row">
+                                            <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Prix</label>
+                                            <div class="col-9 col-lg-10">
+                                                <input type="number" name="prix" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Keyword</label>
+                                            <div class="col-9 col-lg-10">
+                                                <input type="text" name="keyword" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Quantite</label>
+                                            <div class="col-9 col-lg-10">
+                                                <input type="number" name="quantite" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWebSite" class="col-3 col-lg-2 col-form-label text-right">Quantite</label>
+                                            <div class="col-9 col-lg-10">
+                                                <input type="file" name="image" accept="image/png, image/jpeg" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row ">
                                             <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
-                                                <label class="be-checkbox custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"><span class="custom-control-label">Remember me</span>
-                                                </label>
+                                                
                                             </div>
                                             <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button type="submit" class="btn btn-space btn-primary">Submit</button>
+                                                    <button type="submit" name="addProduct" class="btn btn-space btn-primary">Submit</button>
                                                     <button class="btn btn-space btn-secondary">Cancel</button>
                                                 </p>
                                             </div>

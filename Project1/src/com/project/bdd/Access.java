@@ -25,11 +25,59 @@ public class Access {
 	
 	public String utilisateur;
 	public String motDePasse;
+	public Float ca;
+	public int nbOrders;
+	public int nbUsers;
 	
 	public Access() throws FileNotFoundException {
 		super();
 		utilisateur = "root";
 		motDePasse = "uirproject1";    
+	}
+	
+	public boolean addProduct(Product p) {
+		
+		/* Chargement du driver JDBC pour MySQL */
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		
+		String sql = "INSERT INTO products(vendeur_id, designation, categorie, description, prix, keyword, Q_stock, image) VALUES(13,?,?,?,?,?,?,?);";
+		
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    statement = connexion.createStatement();
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    preparedStatement.setString(1, p.getDesignation());
+		    preparedStatement.setString(2, p.getCategorie());
+		    preparedStatement.setString(3, p.getDescription());
+		    preparedStatement.setDouble(4, p.getPrix());
+		    preparedStatement.setString(5, p.getKeyword());
+		    preparedStatement.setInt(6, p.getQ_stock());
+		    preparedStatement.setString(7, p.getImage());
+		    int status = preparedStatement.executeUpdate();
+		    
+		    connexion.close();
+		    
+		    if(status == 0 ) return false;
+		    
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+		return true;
 	}
 	
 	public boolean addOrder(int user_id, Cart cart) {
@@ -482,4 +530,199 @@ public class Access {
 		}
 		
 	}
+	
+	public void deleteProduct(int id) {
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "uirproject1";
+		Connection connexion = null;
+		int resultat;
+		String sql = "DELETE FROM products WHERE id = ?";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    preparedStatement.setInt(1, id);
+		    resultat =preparedStatement.executeUpdate();
+		    
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	public void UpdateProduct(int id, String variable, String value) {
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "uirproject1";
+		Connection connexion = null;
+		int resultat;
+		String sql = "UPDATE products SET " + variable + "=? WHERE id = ?";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    if(variable.equals("prix") || variable.equals("Q_stock")) {
+		    	preparedStatement.setInt(1, Integer.parseInt(value));
+		    }
+		    else {
+		    	preparedStatement.setString(1, value);
+		    }
+		    preparedStatement.setInt(2, id);
+		    resultat =preparedStatement.executeUpdate();
+		    
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	public ArrayList<RecentOrders> getRecentOrders() {
+		ArrayList<RecentOrders> orders = new ArrayList<RecentOrders>();
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "uirproject1";
+		Connection connexion = null;
+		ResultSet resultat;
+		String sql = "SELECT u.username, p.designation, p.id, l.quantite, p.prix, c.reg_date FROM users AS u, products AS p, commande AS c, lignedecommande AS l WHERE u.id=c.user_id AND p.id=l.product_id AND l.order_id=c.id ORDER BY c.reg_date DESC LIMIT 4";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    resultat =preparedStatement.executeQuery();
+		    
+		    while(resultat.next()){
+		    	 RecentOrders order = new RecentOrders(resultat.getString("designation"), resultat.getInt("quantite"), resultat.getInt("id"), resultat.getFloat("prix"), resultat.getDate("reg_date").toString(), resultat.getString("username"));
+		    	 
+		    	 
+		    	 orders.add(order);
+		    }
+		    
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		return orders;
+	}
+	
+	public ArrayList<BestSelling> getBestSelling() {
+		ArrayList<BestSelling> products = new ArrayList<BestSelling>();
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "uirproject1";
+		Connection connexion = null;
+		ResultSet resultat;
+		String sql = "SELECT p.designation, SUM(p.prix * l.quantite) AS total FROM products AS p, lignedecommande AS l WHERE p.id=l.product_id GROUP BY(p.id) Order BY total DESC LIMIT 5";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    resultat =preparedStatement.executeQuery();
+		    
+		    while(resultat.next()){
+		    	 BestSelling product = new BestSelling(resultat.getString("designation"), resultat.getFloat("total"));
+		    	 
+		    	 
+		    	 products.add(product);
+		    }
+		    
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		return products;
+	}
+	
+	public void getStatistics() {
+		try {
+		    Class.forName( "com.mysql.cj.jdbc.Driver" );
+		} catch ( ClassNotFoundException e ) {
+		    System.out.println("err");
+		}
+		
+		/* Connexion à la base de données */
+		String url = "jdbc:mysql://mysql.abdellah.ma:32895/ecom_project?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String utilisateur = "root";
+		String motDePasse = "uirproject1";
+		Connection connexion = null;
+		ResultSet resultat;
+		String sql = "SELECT SUM(p.prix * l.quantite) AS total FROM products AS p, lignedecommande AS l WHERE p.id=l.product_id AND MONTH(reg_date)=MONTH(now()) GROUP BY p.id WITH ROLLUP Order BY total DESC LIMIT 1";
+		try {
+			
+		    connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		    
+		    /* Requette SQL */ 
+		    
+		    PreparedStatement preparedStatement = connexion.prepareStatement(sql);
+		    resultat =preparedStatement.executeQuery();
+		    resultat.next();
+		    this.ca = resultat.getFloat("total");
+		    //System.out.println(ca);
+		    
+		    sql = "SELECT Count(id) as count From users WHERE role='user'";
+		    preparedStatement = connexion.prepareStatement(sql);
+		    resultat =preparedStatement.executeQuery();
+		    resultat.next();
+		    this.nbUsers = resultat.getInt("count");
+		    
+		    sql = "SELECT Count(id) as count From products";
+		    preparedStatement = connexion.prepareStatement(sql);
+		    resultat =preparedStatement.executeQuery();
+		    resultat.next();
+		    this.nbOrders = resultat.getInt("count");
+		    
+		    connexion.close(); 
+
+		} catch ( SQLException e ) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
 }

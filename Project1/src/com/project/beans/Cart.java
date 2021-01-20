@@ -1,5 +1,7 @@
 package com.project.beans;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.project.bdd.Access;
@@ -40,7 +42,7 @@ public class Cart {
 		longueur = 0;
 	}
 	
-	public void updateCart(int p_id, int q) {
+	public void updateCart(int p_id, int q) throws IOException {
 		Access accee = new Access();
 		Product p = accee.getProduct(p_id);
 		if(p==null) return;
@@ -62,7 +64,7 @@ public class Cart {
 		}
 	}
 	
-	public void addProduct(int p_id) {
+	public void addProduct(int p_id) throws IOException {
 		Access accee = new Access();
 		Product p = accee.getProduct(p_id);
 		if(p==null) return;

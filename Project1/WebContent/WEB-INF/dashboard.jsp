@@ -292,7 +292,7 @@
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/form-elements.html">Form Elements</a>
+                                            <a class="nav-link" href="Forms">Form Elements</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="pages/form-validation.html">Parsely Validations</a>
@@ -580,61 +580,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
-                                                        </td>
-                                                        <td>Product #1 </td>
-                                                        <td>id000001 </td>
-                                                        <td>20</td>
-                                                        <td>$80.00</td>
-                                                        <td>27-08-2018 01:22:12</td>
-                                                        <td>Patricia J. King </td>
-                                                        <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user" class="rounded" width="45"></div>
-                                                        </td>
-                                                        <td>Product #2 </td>
-                                                        <td>id000002 </td>
-                                                        <td>12</td>
-                                                        <td>$180.00</td>
-                                                        <td>25-08-2018 21:12:56</td>
-                                                        <td>Rachel J. Wicker </td>
-                                                        <td><span class="badge-dot badge-success mr-1"></span>Delivered </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic-3.jpg" alt="user" class="rounded" width="45"></div>
-                                                        </td>
-                                                        <td>Product #3 </td>
-                                                        <td>id000003 </td>
-                                                        <td>23</td>
-                                                        <td>$820.00</td>
-                                                        <td>24-08-2018 14:12:77</td>
-                                                        <td>Michael K. Ledford </td>
-                                                        <td><span class="badge-dot badge-success mr-1"></span>Delivered </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic-4.jpg" alt="user" class="rounded" width="45"></div>
-                                                        </td>
-                                                        <td>Product #4 </td>
-                                                        <td>id000004 </td>
-                                                        <td>34</td>
-                                                        <td>$340.00</td>
-                                                        <td>23-08-2018 09:12:35</td>
-                                                        <td>Michael K. Ledford </td>
-                                                        <td><span class="badge-dot badge-success mr-1"></span>Delivered </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                                    </tr>
+                                                    <c:forEach items="${ orders }" var="order">
+			                                            <tr>
+			                                            	<td></td>
+	                                                        <td>
+	                                                            <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+	                                                        </td>
+			                                                <td>${ order.productName }</td>
+			                                                <td>${ order.productId }</td>
+			                                                <td>${ order.quantite }</td>
+			                                                <td>${ order.price }</td>
+			                                                <td>${ order.date }</td>
+			                                                <td>${ order.costumer }</td>
+			                                                <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
+			                                             </tr>
+		                                            </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -794,7 +754,7 @@
                                     <div class="card-body">
                                         <h5 class="text-muted">Sales</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">$12099</h1>
+                                            <h1 class="mb-1">$${ sessionScope.ca }</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                             <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5.86%</span>
@@ -811,9 +771,9 @@
                             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                                 <div class="card border-3 border-top border-top-primary">
                                     <div class="card-body">
-                                        <h5 class="text-muted">New Customer</h5>
+                                        <h5 class="text-muted">Number Of Customers</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">1245</h1>
+                                            <h1 class="mb-1"> ${ sessionScope.nbUsers}</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                             <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">10%</span>
@@ -851,7 +811,7 @@
                                     <div class="card-body">
                                         <h5 class="text-muted">Total Orders</h5>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">1340</h1>
+                                            <h1 class="mb-1">${ sessionScope.nbOrders }</h1>
                                         </div>
                                         <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
                                             <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light "><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1">4%</span>
@@ -931,23 +891,15 @@
                                 <!-- sales traffice source  -->
                                 <!-- ============================================================== -->
                                 <div class="card">
-                                    <h5 class="card-header"> Sales By Traffic Source</h5>
+                                    <h5 class="card-header">Best-selling products</h5>
                                     <div class="card-body p-0">
                                         <ul class="traffic-sales list-group list-group-flush">
-                                            <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">Direct</span><span class="traffic-sales-amount">$4000.00  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
-                                            </li>
-                                            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Search<span class="traffic-sales-amount">$3123.00  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
-                                                </span>
-                                            </li>
-                                            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Social<span class="traffic-sales-amount ">$3099.00  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
-                                                </span>
-                                            </li>
-                                            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">Referrals<span class="traffic-sales-amount ">$2220.00   <span class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1 text-danger">4.02%</span></span>
-                                                </span>
-                                            </li>
-                                            <li class="traffic-sales-content list-group-item "><span class="traffic-sales-name">Email<span class="traffic-sales-amount">$1567.00   <span class="icon-circle-small icon-box-xs text-danger ml-4 bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1 text-danger">3.86%</span></span>
-                                                </span>
-                                            </li>
+                                            
+                                            <c:forEach items="${ products }" var="product">
+	                                            <li class="traffic-sales-content list-group-item"><span class="traffic-sales-name">${ product.product }<span class="traffic-sales-amount">$${ product.total }  <span class="icon-circle-small icon-box-xs text-success ml-4 bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1 text-success">5.86%</span></span>
+                                                	</span>
+                                            	</li>
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                     <div class="card-footer text-center">

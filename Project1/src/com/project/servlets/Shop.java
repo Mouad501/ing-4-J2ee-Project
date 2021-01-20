@@ -35,11 +35,18 @@ public class Shop extends HttpServlet {
 			session.setAttribute("cart", new Cart());
 		}
 		
-		
-		// display products 
-		Access acce = new Access();
-		ArrayList<Product> products = acce.getProducts();
-		request.setAttribute("products", products);
+		// display products by keywords
+		if(request.getParameter("search")!=null) {
+			Access acce = new Access();
+			ArrayList<Product> products = acce.getProductsByKey(request.getParameter("search"));
+			request.setAttribute("products", products);
+		}
+		else {
+			// display products 
+			Access acce = new Access();
+			ArrayList<Product> products = acce.getProducts();
+			request.setAttribute("products", products);
+		}
 		
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/shop.jsp").forward(request, response);

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.project.bdd.Access;
+import com.project.beans.Commande;
+import com.project.beans.LigneDeCommande;
 import com.project.beans.Product;
 import com.project.beans.User;
 
@@ -39,8 +41,13 @@ public class Tables extends HttpServlet {
 		HttpSession session = request.getSession();
 		User admin = (User) session.getAttribute("admin");
 		if(admin == null) {
-			response.sendRedirect("../Authentification");
+			response.sendRedirect("Authentification");
 			return ;
+		}
+		
+		if(request.getParameter("deleteProduct") != null ) {
+			Access acce = new Access();
+			acce.deleteProduct(Integer.parseInt(request.getParameter("productID")));
 		}
 		
 		
@@ -52,6 +59,13 @@ public class Tables extends HttpServlet {
 		ArrayList<Product> products = acce.getProducts();
 		request.setAttribute("products", products);
 		
+		// display orders
+		ArrayList<Commande> orders = acce.getOrders();
+		request.setAttribute("orders", orders);
+		
+		// display orders Details
+		ArrayList<LigneDeCommande> ordersDetails = acce.getOrdersDetails();
+		request.setAttribute("ordersDetails", ordersDetails);
 		
 		//display clients
 		ArrayList<User> clients = acce.getClients();
@@ -70,7 +84,7 @@ public class Tables extends HttpServlet {
 		HttpSession session = request.getSession();
 		User admin = (User) session.getAttribute("admin");
 		if(admin == null) {
-			response.sendRedirect("../Authentification");
+			response.sendRedirect("Authentification");
 			return ;
 		}
 		

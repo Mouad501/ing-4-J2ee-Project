@@ -3,6 +3,7 @@ package com.project.beans;
 public class Product {
 
 	private int id;
+	private int vendeur_id;
 	private String designation;
 	private String categorie;
 	private String description;
@@ -12,10 +13,11 @@ public class Product {
 	private int q_stock;
 	
 	
-	public Product(int id, String designation, String categorie, String description, Float prix, String keyword,
+	public Product(int id, int vendeur_id, String designation, String categorie, String description, Float prix, String keyword,
 			String image, int q_stock) {
 		super();
 		this.id = id;
+		this.vendeur_id = vendeur_id;
 		this.designation = designation;
 		this.categorie = categorie;
 		this.description = description;
@@ -99,5 +101,13 @@ public class Product {
         if(((Product) p).getId() == this.getId()) return true;
         return false;
     }
+
+	public int getVendeur_id() {
+		return vendeur_id;
+	}
+
+	public void setVendeur_id(int vendeur_id) {
+		this.vendeur_id = vendeur_id;
+	}
 
 }
